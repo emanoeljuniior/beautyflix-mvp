@@ -16,64 +16,43 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
-/* ── LIGHT MODE (default) ── */
-:root, html[data-theme="light"], html:not([data-theme="dark"]) {
-  --text: #1A1118;
-  --text-secondary: #5A4A55;
-  --card-bg: #ffffff;
-  --card-border: #F0E4DA;
-  --input-label: #1A1118;
-  --info-bg: #FFF5F7;
-  --success-bg: #F0FFF4;
-  --divider: #F0E4DA;
-}
-
-/* ── DARK MODE — Streamlit sets data-theme on <html> ── */
-html[data-theme="dark"] {
-  --text: #F0E8F4 !important;
-  --text-secondary: #C8B8D0 !important;
-  --card-bg: #1E1525 !important;
-  --card-border: #3D2A4A !important;
-  --input-label: #F0E8F4 !important;
-  --info-bg: #2A1520 !important;
-  --success-bg: #0D2318 !important;
-  --divider: #3D2A4A !important;
-}
-
-html, body, .stApp {
+/* ── TIPOGRAFIA ── */
+html, body, .stApp, [class*="css"] {
   font-family: 'DM Sans', sans-serif;
 }
 
-/* Texto geral — escopo no stApp para não vazar */
-.stApp, .stApp p, .stApp li, .stApp label,
-.stApp .stMarkdown, .stApp .stMarkdown p,
-.stApp .stMarkdown li, .stApp .stMarkdown span {
-  color: var(--text) !important;
-  font-family: 'DM Sans', sans-serif;
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif !important;
+  color: #F0E8F4 !important;
 }
 
-.stApp h1, .stApp h2, .stApp h3 {
-  font-family: 'Playfair Display', serif;
-  color: var(--text) !important;
+/* Força texto geral a ser claro — sobrescreve primaryColor do Streamlit */
+p, span, label, li, small, div,
+.stMarkdown, .stMarkdown p, .stMarkdown li,
+.stMarkdown span, .stMarkdown small,
+[data-testid="stWidgetLabel"] p,
+[data-testid="stWidgetLabel"] label,
+.stSelectbox label, .stTextInput label,
+.stDateInput label, .stCheckbox label,
+.stRadio label, .stTextArea label {
+  color: #F0E8F4 !important;
 }
 
+/* ── HEADER BANNER ── */
 .main-header {
   background: linear-gradient(135deg, #1A1118 0%, #3D1F2E 60%, #E8788A 100%);
   padding: 2.5rem 2rem;
   border-radius: 16px;
   margin-bottom: 2rem;
-  color: white;
   text-align: center;
 }
-
 .main-header h1 {
   font-size: 3rem;
   font-weight: 700;
   letter-spacing: -1px;
   margin: 0;
-  color: white !important;
+  color: #ffffff !important;
 }
-
 .main-header .tagline {
   color: #F5C2CB !important;
   font-size: 1.05rem;
@@ -81,280 +60,152 @@ html, body, .stApp {
   font-style: italic;
 }
 
+/* ── CARDS DE PLANO ── */
 .plan-card {
-  background: var(--card-bg);
+  background: #1E1525;
   border-radius: 16px;
   padding: 1.5rem;
-  border: 2px solid var(--card-border);
+  border: 2px solid #3D2A4A;
   text-align: center;
   transition: all 0.2s;
-  cursor: pointer;
   height: 100%;
-  color: var(--text);
 }
-
-.plan-card h3 {
-  color: var(--text) !important;
-}
-
-.plan-card li {
-  color: var(--text-secondary) !important;
-}
-
+.plan-card h3 { color: #F0E8F4 !important; }
+.plan-card li, .plan-card p, .plan-card small { color: #C8B8D0 !important; }
 .plan-card:hover {
   border-color: #E8788A;
   box-shadow: 0 8px 24px rgba(232,120,138,0.2);
   transform: translateY(-2px);
 }
-
 .plan-card.featured {
   background: linear-gradient(145deg, #1A1118, #3D1F2E);
   border-color: #C9A96E;
-  color: white !important;
 }
-
-.plan-card.featured h3,
+.plan-card.featured h3 { color: #ffffff !important; }
 .plan-card.featured li,
 .plan-card.featured p,
-.plan-card.featured small {
-  color: #F5C2CB !important;
-}
-
-.plan-card h3 {
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
-}
-
+.plan-card.featured small { color: #F5C2CB !important; }
 .plan-price {
   font-size: 2rem;
   font-weight: 700;
   color: #E8788A !important;
 }
+.plan-card.featured .plan-price { color: #C9A96E !important; }
 
-.plan-card.featured .plan-price {
-  color: #C9A96E !important;
-}
-
+/* ── BADGE ── */
 .badge {
   background: #E8788A;
-  color: white !important;
+  color: #ffffff !important;
   padding: 0.2rem 0.7rem;
   border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 500;
 }
+.badge-gold { background: #C9A96E; }
 
-.badge-gold {
-  background: #C9A96E;
-}
-
+/* ── SALON CARD ── */
 .salon-card {
-  background: var(--card-bg);
+  background: #1E1525;
   border-radius: 12px;
   padding: 1.2rem;
-  border: 1px solid var(--card-border);
+  border: 1px solid #3D2A4A;
   margin-bottom: 0.8rem;
-  cursor: pointer;
   transition: all 0.15s;
-  color: var(--text);
 }
-
-.salon-card b, .salon-card strong {
-  color: var(--text) !important;
-}
-
-.salon-card small {
-  color: var(--text-secondary) !important;
-}
-
+.salon-card b, .salon-card strong { color: #F0E8F4 !important; }
+.salon-card small { color: #C8B8D0 !important; }
 .salon-card:hover {
   border-color: #E8788A;
-  box-shadow: 0 4px 12px rgba(232,120,138,0.12);
+  box-shadow: 0 4px 12px rgba(232,120,138,0.15);
 }
 
+/* ── METRIC BOX ── */
 .metric-box {
-  background: linear-gradient(135deg, #1A1118, #3D1F2E);
-  color: white;
+  background: linear-gradient(135deg, #1A1118, #2A1A2E);
   border-radius: 12px;
   padding: 1.2rem;
   text-align: center;
+  border: 1px solid #3D2A4A;
 }
-
 .metric-box .value {
   font-size: 2rem;
   font-weight: 700;
   color: #C9A96E !important;
   font-family: 'Playfair Display', serif;
 }
-
 .metric-box .label {
   font-size: 0.85rem;
   color: #F5C2CB !important;
   margin-top: 0.2rem;
 }
 
-.booking-slot {
-  background: var(--nude);
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  margin: 0.3rem;
-  display: inline-block;
-  cursor: pointer;
-  font-size: 0.9rem;
-  border: 2px solid transparent;
-  transition: all 0.15s;
-  color: var(--text);
-}
-
-.booking-slot:hover {
-  background: #F5C2CB;
-  border-color: #E8788A;
-  color: #1A1118 !important;
-}
-
-.booking-slot.selected {
-  background: #E8788A;
-  color: white !important;
-}
-
-.status-active {
-  color: #2ECC71 !important;
-  font-weight: 600;
-}
-
-.status-pending {
-  color: #F39C12 !important;
-  font-weight: 600;
-}
-
-.divider {
-  border: none;
-  border-top: 1px solid var(--divider);
-  margin: 1.5rem 0;
-}
-
-[data-testid="stSidebar"] {
-  background: #1A1118 !important;
-}
-
-[data-testid="stSidebar"] * {
-  color: white !important;
-}
-
-[data-testid="stSidebar"] .stButton > button {
-  background: linear-gradient(135deg, #E8788A, #C9607A) !important;
-  color: white !important;
-}
-
-.stButton > button {
-  background: linear-gradient(135deg, #E8788A, #C9607A) !important;
-  color: white !important;
-  border: none;
-  border-radius: 8px;
-  padding: 0.6rem 1.5rem;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-
-.stButton > button:hover {
-  background: linear-gradient(135deg, #C9607A, #A84060) !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(232,120,138,0.3);
-  color: white !important;
-}
-
-.stButton > button p, .stButton > button span {
-  color: white !important;
-}
-
-.stApp .stSelectbox label, .stApp .stDateInput label,
-.stApp .stTextInput label, .stApp .stSelectbox > label,
-.stApp .stDateInput > label, .stApp .stTextInput > label,
-.stApp [data-testid="stWidgetLabel"] {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 500;
-  color: var(--text) !important;
-}
-
-/* Tabs */
-.stTabs [data-baseweb="tab"] {
-  color: var(--text-secondary) !important;
-}
-.stTabs [aria-selected="true"] {
-  color: #E8788A !important;
-}
-
-/* Expander */
-.streamlit-expanderHeader, [data-testid="stExpander"] summary {
-  color: var(--text) !important;
-}
-
-/* Dataframe */
-.stDataFrame {
-  color: var(--text) !important;
-}
-
+/* ── INFO / SUCCESS BOX ── */
 .info-box {
-  background: var(--info-bg);
+  background: #2A1520;
   border-left: 4px solid #E8788A;
-  color: var(--text);
   border-radius: 0 8px 8px 0;
   padding: 1rem 1.2rem;
   margin: 1rem 0;
+  color: #F0E8F4 !important;
 }
+.info-box b, .info-box strong { color: #ffffff !important; }
 
 .success-box {
-  background: var(--success-bg);
+  background: #0D2318;
   border-left: 4px solid #2ECC71;
   border-radius: 0 8px 8px 0;
   padding: 1rem 1.2rem;
   margin: 1rem 0;
-  color: var(--text);
+  color: #F0E8F4 !important;
 }
 
-.info-box b, .info-box strong { color: var(--text) !important; }
-.success-box b, .success-box strong { color: var(--text) !important; }
+/* ── SIDEBAR ── */
+[data-testid="stSidebar"] {
+  background: #0D0910 !important;
+}
+[data-testid="stSidebar"] * {
+  color: #F0E8F4 !important;
+}
 
-/* salon-card e plan-card: garantir herança no dark */
-html[data-theme="dark"] .salon-card,
-html[data-theme="dark"] .salon-card b,
-html[data-theme="dark"] .salon-card strong {
-  color: #F0E8F4 !important;
+/* ── BOTÕES ── */
+.stButton > button {
+  background: linear-gradient(135deg, #E8788A, #C9607A) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 500 !important;
+  transition: all 0.2s !important;
 }
-html[data-theme="dark"] .salon-card small {
-  color: #C8B8D0 !important;
+.stButton > button:hover {
+  background: linear-gradient(135deg, #C9607A, #A84060) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(232,120,138,0.3) !important;
 }
-html[data-theme="dark"] .plan-card {
-  color: #F0E8F4 !important;
-}
-html[data-theme="dark"] .plan-card h3 {
-  color: #F0E8F4 !important;
-}
-html[data-theme="dark"] .plan-card li {
-  color: #C8B8D0 !important;
-}
-html[data-theme="dark"] .info-box {
-  color: #F0E8F4 !important;
-}
-html[data-theme="dark"] .info-box b,
-html[data-theme="dark"] .info-box strong {
+.stButton > button p,
+.stButton > button span,
+.stButton > button div {
   color: #ffffff !important;
 }
 
-/* light mode explicit overrides */
-html[data-theme="light"] .salon-card,
-html[data-theme="light"] .salon-card b,
-html[data-theme="light"] .salon-card strong,
-html:not([data-theme="dark"]) .salon-card b {
-  color: #1A1118 !important;
-}
-html[data-theme="light"] .plan-card,
-html:not([data-theme="dark"]) .plan-card {
-  color: #1A1118 !important;
+/* ── TABS ── */
+.stTabs [data-baseweb="tab"] { color: #C8B8D0 !important; }
+.stTabs [aria-selected="true"] { color: #E8788A !important; }
+
+/* ── EXPANDER ── */
+[data-testid="stExpander"] summary,
+.streamlit-expanderHeader { color: #F0E8F4 !important; }
+
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 1px solid #3D2A4A;
+  margin: 1.5rem 0;
 }
 </style>
 """, unsafe_allow_html=True)
+
+
 
 # --- Session State Init ---
 if "user_type" not in st.session_state:
