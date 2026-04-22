@@ -6,9 +6,10 @@ No Colab: use userdata.get() ou os.environ para não expor as chaves.
 
 import os
 from supabase import create_client, Client
+import streamlit as st
 
-SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://SEU_PROJETO.supabase.co")
-SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "SUA_ANON_KEY")
+SUPABASE_URL = st.secrets["SUPABASE_URL"]
+SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
 
 _client: Client | None = None
 
