@@ -16,16 +16,10 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
-/* ── LIGHT MODE ── */
-:root {
-  --rose: #E8788A;
-  --blush: #F5C2CB;
-  --nude: #F0E4DA;
-  --dark: #1A1118;
-  --gold: #C9A96E;
-  --bg: #FDFAF8;
+/* ── LIGHT MODE (default) ── */
+:root, html[data-theme="light"], html:not([data-theme="dark"]) {
   --text: #1A1118;
-  --text-secondary: #555;
+  --text-secondary: #5A4A55;
   --card-bg: #ffffff;
   --card-border: #F0E4DA;
   --input-label: #1A1118;
@@ -34,46 +28,33 @@ st.markdown("""
   --divider: #F0E4DA;
 }
 
-/* ── DARK MODE ── */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #110d14;
-    --text: #F5EEF8;
-    --text-secondary: #C8B8D0;
-    --card-bg: #1E1525;
-    --card-border: #3D2A4A;
-    --input-label: #F5EEF8;
-    --info-bg: #2A1A20;
-    --success-bg: #0D2318;
-    --divider: #3D2A4A;
-  }
+/* ── DARK MODE — Streamlit sets data-theme on <html> ── */
+html[data-theme="dark"] {
+  --text: #F0E8F4 !important;
+  --text-secondary: #C8B8D0 !important;
+  --card-bg: #1E1525 !important;
+  --card-border: #3D2A4A !important;
+  --input-label: #F0E8F4 !important;
+  --info-bg: #2A1520 !important;
+  --success-bg: #0D2318 !important;
+  --divider: #3D2A4A !important;
 }
 
-/* Streamlit also sets data-theme attribute */
-[data-theme="dark"] {
-  --bg: #110d14;
-  --text: #F5EEF8;
-  --text-secondary: #C8B8D0;
-  --card-bg: #1E1525;
-  --card-border: #3D2A4A;
-  --input-label: #F5EEF8;
-  --info-bg: #2A1A20;
-  --success-bg: #0D2318;
-  --divider: #3D2A4A;
-}
-
-html, body, [class*="css"], .stApp {
+html, body, .stApp {
   font-family: 'DM Sans', sans-serif;
-  color: var(--text) !important;
 }
 
-h1, h2, h3 {
+/* Texto geral — escopo no stApp para não vazar */
+.stApp, .stApp p, .stApp li, .stApp label,
+.stApp .stMarkdown, .stApp .stMarkdown p,
+.stApp .stMarkdown li, .stApp .stMarkdown span {
+  color: var(--text) !important;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.stApp h1, .stApp h2, .stApp h3 {
   font-family: 'Playfair Display', serif;
   color: var(--text) !important;
-}
-
-p, li, span, small, label, div {
-  color: var(--text);
 }
 
 .main-header {
@@ -287,11 +268,13 @@ p, li, span, small, label, div {
   color: white !important;
 }
 
-.stSelectbox label, .stDateInput label, .stTextInput label,
-.stSelectbox > label, .stDateInput > label, .stTextInput > label {
+.stApp .stSelectbox label, .stApp .stDateInput label,
+.stApp .stTextInput label, .stApp .stSelectbox > label,
+.stApp .stDateInput > label, .stApp .stTextInput > label,
+.stApp [data-testid="stWidgetLabel"] {
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  color: var(--input-label) !important;
+  color: var(--text) !important;
 }
 
 /* Tabs */
@@ -303,7 +286,7 @@ p, li, span, small, label, div {
 }
 
 /* Expander */
-.streamlit-expanderHeader {
+.streamlit-expanderHeader, [data-testid="stExpander"] summary {
   color: var(--text) !important;
 }
 
@@ -333,8 +316,42 @@ p, li, span, small, label, div {
 .info-box b, .info-box strong { color: var(--text) !important; }
 .success-box b, .success-box strong { color: var(--text) !important; }
 
-.stMarkdown p, .stMarkdown li {
-  color: var(--text) !important;
+/* salon-card e plan-card: garantir herança no dark */
+html[data-theme="dark"] .salon-card,
+html[data-theme="dark"] .salon-card b,
+html[data-theme="dark"] .salon-card strong {
+  color: #F0E8F4 !important;
+}
+html[data-theme="dark"] .salon-card small {
+  color: #C8B8D0 !important;
+}
+html[data-theme="dark"] .plan-card {
+  color: #F0E8F4 !important;
+}
+html[data-theme="dark"] .plan-card h3 {
+  color: #F0E8F4 !important;
+}
+html[data-theme="dark"] .plan-card li {
+  color: #C8B8D0 !important;
+}
+html[data-theme="dark"] .info-box {
+  color: #F0E8F4 !important;
+}
+html[data-theme="dark"] .info-box b,
+html[data-theme="dark"] .info-box strong {
+  color: #ffffff !important;
+}
+
+/* light mode explicit overrides */
+html[data-theme="light"] .salon-card,
+html[data-theme="light"] .salon-card b,
+html[data-theme="light"] .salon-card strong,
+html:not([data-theme="dark"]) .salon-card b {
+  color: #1A1118 !important;
+}
+html[data-theme="light"] .plan-card,
+html:not([data-theme="dark"]) .plan-card {
+  color: #1A1118 !important;
 }
 </style>
 """, unsafe_allow_html=True)
